@@ -7,12 +7,21 @@ import (
 )
 
 // go test -v homework_test.go
+const (
+	maskByte0 = 0xff << (8 * iota)
+	maskByte1
+	maskByte2
+	maskByte3
+)
 
 func ToLittleEndian(number uint32) uint32 {
-	return 0 // need to implement
+	return ((number >> 24) & maskByte0) |
+		((number >> 8) & maskByte1) |
+		((number << 8) & maskByte2) |
+		((number << 24) & maskByte3)
 }
 
-func TestСonversion(t *testing.T) {
+func TestConversion(t *testing.T) {
 	tests := map[string]struct {
 		number uint32
 		result uint32
